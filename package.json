@@ -3,6 +3,7 @@
   "version": "1.0.0-beta.14",
   "description": "A full-fledged Node.js runtime for Capacitor apps",
   "type": "module",
+  "packageManager": "pnpm@10.34.1",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -27,7 +28,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RockinChaos/capacitor-nodejs.git"
+    "url": "https://github.com/RockinChaos/capacitor-nodejs.git"
   },
   "bugs": {
     "url": "https://github.com/RockinChaos/capacitor-nodejs/issues"
@@ -38,28 +39,28 @@
     "native"
   ],
   "scripts": {
-    "verify": "npm run verify:ios && npm run verify:android && npm run verify:web",
+    "verify": "pnpm run verify:ios && pnpm run verify:android && pnpm run verify:web",
     "verify:ios": "cd ios && pod install && xcodebuild -workspace Plugin.xcworkspace -scheme Plugin && cd ..",
     "verify:android": "node scripts/extract-libnode.mjs && cd android && ./gradlew clean build test && cd .. && node scripts/cleanup-libnode.mjs",
-    "verify:web": "npm run build",
-    "verify:ci": "npm run verify:android && npm run verify:web",
-    "lint": "npm run eslint && npm run prettier -- --check && npm run swiftlint -- lint",
-    "lint:ci": "npm run eslint && npm run prettier -- --check",
-    "fmt": "npm run eslint -- --fix && npm run prettier -- --write && npm run swiftlint -- autocorrect --format",
+    "verify:web": "pnpm run build",
+    "verify:ci": "pnpm run verify:android && pnpm run verify:web",
+    "lint": "pnpm run eslint && pnpm run prettier -- --check && pnpm run swiftlint -- lint",
+    "lint:ci": "pnpm run eslint && pnpm run prettier -- --check",
+    "fmt": "pnpm run eslint -- --fix && pnpm run prettier -- --write && pnpm run swiftlint -- autocorrect --format",
     "eslint": "eslint . --ext ts",
     "prettier": "prettier \"**/*.{css,html,ts,js,java}\" --plugin=prettier-plugin-java",
     "swiftlint": "node-swiftlint",
     "docgen": "docgen --api NodeJSInterface --output-readme README.md --output-json dist/docs.json",
     "build-bridge": "tsc --project bridge/tsconfig.json && rollup -c bridge/rollup.config.mjs && rimraf ./bridge/build",
-    "build": "npm run clean && tsc && rollup -c rollup.config.mjs && npm run build-bridge",
+    "build": "pnpm run clean && tsc && rollup -c rollup.config.mjs && pnpm run build-bridge",
     "clean": "rimraf ./dist ./build",
     "watch": "tsc --watch",
     "prepack": "mkdirp build && node scripts/extract-libnode.mjs",
     "postpack": "node scripts/cleanup-libnode.mjs",
-    "pack:bridge": "cd assets/types/bridge && npm pack --pack-destination ../ && node ../../../scripts/pack-bridge.mjs",
-    "pack": "npm run pack:bridge && npm pack --pack-destination build/",
-    "prepublishOnly": "npm run build",
-    "release": "npm run clean && npm run docgen && npm run build"
+    "pack:bridge": "cd assets/types/bridge && pnpm pack --pack-destination ../ && node ../../../scripts/pack-bridge.mjs",
+    "pack": "pnpm run pack:bridge && pnpm pack --pack-destination build/",
+    "prepublishOnly": "pnpm run build",
+    "release": "pnpm run clean && pnpm run docgen && pnpm run build"
   },
   "devDependencies": {
     "@capacitor/android": "8.0.0",
