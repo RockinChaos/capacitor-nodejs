@@ -1,6 +1,6 @@
 {
   "name": "capacitor-nodejs",
-  "version": "1.0.0-beta.14",
+  "version": "1.0.0-beta.15",
   "description": "A full-fledged Node.js runtime for Capacitor apps",
   "type": "module",
   "packageManager": "pnpm@10.34.1",
