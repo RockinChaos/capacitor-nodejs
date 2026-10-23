@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
+    "types": ["node"],
     "allowUnusedLabels": false,
     "allowUnreachableCode": false,
     "noFallthroughCasesInSwitch": true,
