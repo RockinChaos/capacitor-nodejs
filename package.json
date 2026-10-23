@@ -41,7 +41,7 @@
   "scripts": {
     "verify": "pnpm run verify:ios && pnpm run verify:android && pnpm run verify:web",
     "verify:ios": "cd ios && pod install && xcodebuild -workspace Plugin.xcworkspace -scheme Plugin && cd ..",
-    "verify:android": "node scripts/extract-libnode.mjs && cd android && ./gradlew clean build test && cd .. && node scripts/cleanup-libnode.mjs",
+    "verify:android": "cd android && ./gradlew clean build test && cd ..",
     "verify:web": "pnpm run build",
     "verify:ci": "pnpm run verify:android && pnpm run verify:web",
     "lint": "pnpm run eslint && pnpm run prettier -- --check && pnpm run swiftlint -- lint",
@@ -55,8 +55,7 @@
     "build": "pnpm run clean && tsc && rollup -c rollup.config.mjs && pnpm run build-bridge",
     "clean": "rimraf ./dist ./build",
     "watch": "tsc --watch",
-    "prepack": "mkdirp build && node scripts/extract-libnode.mjs",
-    "postpack": "node scripts/cleanup-libnode.mjs",
+    "prepack": "mkdirp build",
     "pack:bridge": "cd assets/types/bridge && pnpm pack --pack-destination ../ && node ../../../scripts/pack-bridge.mjs",
     "pack": "pnpm run pack:bridge && pnpm pack --pack-destination build/",
     "prepublishOnly": "pnpm run build",
@@ -84,8 +83,7 @@
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-dts": "^6.5.1",
     "swiftlint": "^2.0.0",
-    "typescript": "^5.9.3",
-    "unzipper": "^0.12.5"
+    "typescript": "^5.9.3"
   },
   "peerDependencies": {
     "@capacitor/core": ">=8.0.0"
