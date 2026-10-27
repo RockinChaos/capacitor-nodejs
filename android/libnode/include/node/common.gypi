@@ -42,7 +42,7 @@
 
     # Reset this number to 0 on major V8 upgrades.
     # Increment by one for each non-official patch applied to deps/v8.
-    'v8_embedder_string': '-node.59',
+    'v8_embedder_string': '-node.58-mobile.0',
 
     ##### V8 defaults for Node.js #####
 
@@ -313,13 +313,7 @@
           },],
           ['OS == "android"', {
             'cflags': [ '-fPIC' ],
-            'conditions': [
-              ['configuring_node', {
-                'cflags': [ '-I<(android_ndk_path)/sources/android/cpufeatures' ],
-              }],
-            ],
-            # nodejs-mobile: starting Nov 2025, the play store requires a 16kb page size alignment
-            'ldflags': [ '-fPIC', '-Wl,-z,max-page-size=16384' ]
+            'ldflags': [ '-fPIC' ]
           }],
           ['clang==1', {
             'msbuild_toolset': 'ClangCL',
@@ -447,6 +441,30 @@
     'msvs_cygwin_shell': 0, # prevent actions from trying to use cygwin
 
     'conditions': [
+      ['OS=="android" and configuring_node==0', {
+        'target_conditions': [
+          ['_toolset=="target" and _type=="loadable_module"', {
+            'ldflags': [
+              '-Wl,-z,max-page-size=16384',
+              '-Wl,-z,common-page-size=16384',
+            ],
+            'conditions': [
+              ['target_arch=="arm"', {
+                'libraries': ['<(node_root_dir)/bin/armeabi-v7a/libnode.so'],
+              }],
+              ['target_arch=="arm64"', {
+                'libraries': ['<(node_root_dir)/bin/arm64-v8a/libnode.so'],
+              }],
+              ['target_arch in ("x64", "x86_64")', {
+                'libraries': ['<(node_root_dir)/bin/x86_64/libnode.so'],
+              }],
+              ['target_arch in ("ia32", "x86")', {
+                'libraries': ['<(node_root_dir)/bin/x86/libnode.so'],
+              }],
+            ],
+          }],
+        ],
+      }],
       [ 'configuring_node', {
         'msvs_configuration_attributes': {
           'OutputDirectory': '<(DEPTH)/out/$(Configuration)/',
@@ -469,7 +487,7 @@
         'cflags!': [ '-fomit-frame-pointer' ],
         'ldflags': [ '-fsanitize=address' ],
       }],
-      ['asan == 1 and OS == "mac"', {
+      ['asan == 1 and (OS == "mac" or OS == "ios")', {
         'xcode_settings': {
           'OTHER_CFLAGS+': [
             '-fno-omit-frame-pointer',
@@ -587,13 +605,7 @@
         'ldflags': [ '-pthread' ],
       }],
       [ 'OS in "linux freebsd openbsd solaris android aix os400 cloudabi openharmony"', {
-        'cflags': [
-          # nodejs-mobile: don't print 50k pointless warnings
-          '-w',
-          # '-Wall',
-          # '-Wextra',
-          '-Wno-unused-parameter',
-        ],
+        'cflags': [ '-Wall', '-Wextra', '-Wno-unused-parameter', ],
         'cflags_cc': [
           '-fno-rtti',
           '-fno-exceptions',
@@ -614,7 +626,7 @@
           ['_toolset=="host"', {
             'conditions': [
               # nodejs-mobile patch: https://github.com/nodejs/node/pull/57748
-              [ 'host_arch=="ia32" or (target_arch=="ia32" or target_arch=="arm")', {
+              [ 'host_arch=="ia32" or (host_arch=="x64" and target_arch in ("ia32", "arm"))', {
                 'cflags': [ '-m32' ],
                 'ldflags': [ '-m32' ],
               }],
@@ -733,27 +745,6 @@
           }],
         ],
       }],
-      ['OS=="android" and configuring_node==0', {
-        'target_conditions': [
-          # Android addons need a NEEDED entry for the distributed libnode.so.
-          ['_toolset=="target" and _type=="loadable_module"', {
-            'conditions': [
-              ['target_arch=="arm"', {
-                'libraries': [ '>(node_root_dir)/bin/armeabi-v7a/libnode.so' ],
-              }],
-              ['target_arch=="arm64"', {
-                'libraries': [ '>(node_root_dir)/bin/arm64-v8a/libnode.so' ],
-              }],
-              ['target_arch=="ia32" or target_arch=="x86"', {
-                'libraries': [ '>(node_root_dir)/bin/x86/libnode.so' ],
-              }],
-              ['target_arch=="x64" or target_arch=="x86_64"', {
-                'libraries': [ '>(node_root_dir)/bin/x86_64/libnode.so' ],
-              }],
-            ],
-          }],
-        ],
-      }],
       ['OS=="mac"', {
         'defines': ['_DARWIN_USE_64_BIT_INODE=1'],
         'xcode_settings': {
@@ -769,11 +760,9 @@
           'MACOSX_DEPLOYMENT_TARGET': '13.5',       # -mmacosx-version-min=13.5
           'USE_HEADERMAP': 'NO',
           'WARNING_CFLAGS': [
-            # nodejs-mobile: don't print 50k pointless warnings
-          '-w',
-            # '-Wall',
-            # '-W',
+            '-Wall',
             '-Wendif-labels',
+            '-W',
             '-Wno-unused-parameter',
           ],
         },
@@ -830,11 +819,9 @@
               'SDKROOT': 'macosx',
               'MACOSX_DEPLOYMENT_TARGET': '13.5',   # Use macOS deployment target for host tools
               'WARNING_CFLAGS': [
-                # nodejs-mobile: don't print 50k pointless warnings
-                '-w',
-                # '-Wall',
-                # '-W',
+                '-Wall',
                 '-Wendif-labels',
+                '-W',
                 '-Wno-unused-parameter',
               ],
             },
@@ -850,11 +837,9 @@
             'xcode_settings': {
               'IPHONEOS_DEPLOYMENT_TARGET': '14.0', # -miphoneos-version-min=14.0
               'WARNING_CFLAGS': [
-                # nodejs-mobile: don't print 50k pointless warnings
-                '-w',
-                # '-Wall',
-                # '-W',
+                '-Wall',
                 '-Wendif-labels',
+                '-W',
                 '-Wno-unused-parameter',
                 '-Wno-enum-constexpr-conversion',
               ],
@@ -863,13 +848,6 @@
               ['iossim!="true" and target_arch in "arm64 arm armv7s"', {
                 'xcode_settings': {
                   'SDKROOT': 'iphoneos',
-                  'ENABLE_BITCODE': 'YES',
-                  'OTHER_CFLAGS': [
-                    '-fembed-bitcode'
-                  ],
-                  'OTHER_CPLUSPLUSFLAGS': [
-                    '-fembed-bitcode'
-                  ],
                 }
               }, {
                 'xcode_settings': {

@@ -1,0 +1,140 @@
+{
+  "source": {
+    "repository": "https://github.com/nodejs/node.git",
+    "version": "24.22.1",
+    "tag": "v24.22.1",
+    "commit": "ce7aaf1cee78b8cf0ce17364260535c418d3ed26",
+    "tree": "73c6ca56c55339a7de527c140b19bf3876fab76f"
+  },
+  "slices": [
+    {
+      "repository": "https://github.com/nodejs/node.git",
+      "version": "24.22.1",
+      "tag": "v24.22.1",
+      "commit": "ce7aaf1cee78b8cf0ce17364260535c418d3ed26",
+      "tree": "73c6ca56c55339a7de527c140b19bf3876fab76f",
+      "target": "armeabi-v7a",
+      "versions": {
+        "acorn": "8.18.0",
+        "ada": "4.0.0",
+        "amaro": "1.1.11",
+        "ares": "1.34.9",
+        "brotli": "1.2.0",
+        "llhttp": "9.4.3",
+        "merve": "1.2.2",
+        "mobile": "24.22.1-0",
+        "modules": "137",
+        "napi": "10",
+        "nbytes": "0.1.4",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.70.0",
+        "nghttp3": "",
+        "ngtcp2": "",
+        "node": "24.22.1",
+        "openssl": "3.5.9",
+        "simdjson": "4.6.11",
+        "simdutf": "6.4.0",
+        "sqlite": "3.53.4",
+        "undici": "7.30.1",
+        "uv": "1.52.1",
+        "uvwasi": "0.0.23",
+        "v8": "13.6.233.17-node.58-mobile.0",
+        "zlib": "1.3.2.1-motley-285e94b",
+        "zstd": "1.5.7"
+      },
+      "config_sha256": "9522447616b2dfaaa1273a91f6032e5fa26dddf8f03daea9b1b3dad88e1fdacb",
+      "binary_sha256": {
+        "bin/armeabi-v7a/libnode.so": "a23f4796cc2c8883796d5fb18907c21010d1db628a4e8bb402f40ac934296cbc"
+      },
+      "symbols_sha256": {
+        "symbols/armeabi-v7a/libnode.so.debug": "386fe945b58d46e00aabb069ab8785bfef202f4214329de13910f79a621f50cd"
+      }
+    },
+    {
+      "repository": "https://github.com/nodejs/node.git",
+      "version": "24.22.1",
+      "tag": "v24.22.1",
+      "commit": "ce7aaf1cee78b8cf0ce17364260535c418d3ed26",
+      "tree": "73c6ca56c55339a7de527c140b19bf3876fab76f",
+      "target": "arm64-v8a",
+      "versions": {
+        "acorn": "8.18.0",
+        "ada": "4.0.0",
+        "amaro": "1.1.11",
+        "ares": "1.34.9",
+        "brotli": "1.2.0",
+        "llhttp": "9.4.3",
+        "merve": "1.2.2",
+        "mobile": "24.22.1-0",
+        "modules": "137",
+        "napi": "10",
+        "nbytes": "0.1.4",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.70.0",
+        "nghttp3": "",
+        "ngtcp2": "",
+        "node": "24.22.1",
+        "openssl": "3.5.9",
+        "simdjson": "4.6.11",
+        "simdutf": "6.4.0",
+        "sqlite": "3.53.4",
+        "undici": "7.30.1",
+        "uv": "1.52.1",
+        "uvwasi": "0.0.23",
+        "v8": "13.6.233.17-node.58-mobile.0",
+        "zlib": "1.3.2.1-motley-285e94b",
+        "zstd": "1.5.7"
+      },
+      "config_sha256": "a95dd7953dc9da9ebd4c3ffb8d67972512c86ae6412e5d5a974ccfa456b125f7",
+      "binary_sha256": {
+        "bin/arm64-v8a/libnode.so": "4f8ae8336459d0175dbb4fad146e06e22ab5579dd5d4a7e4f5a8d5f2a8fab126"
+      },
+      "symbols_sha256": {
+        "symbols/arm64-v8a/libnode.so.debug": "3a3e40740d3cca53651143debf43aa402d41f6457ea785d5035c91fe685f6e2f"
+      }
+    },
+    {
+      "repository": "https://github.com/nodejs/node.git",
+      "version": "24.22.1",
+      "tag": "v24.22.1",
+      "commit": "ce7aaf1cee78b8cf0ce17364260535c418d3ed26",
+      "tree": "73c6ca56c55339a7de527c140b19bf3876fab76f",
+      "target": "x86_64",
+      "versions": {
+        "acorn": "8.18.0",
+        "ada": "4.0.0",
+        "amaro": "1.1.11",
+        "ares": "1.34.9",
+        "brotli": "1.2.0",
+        "llhttp": "9.4.3",
+        "merve": "1.2.2",
+        "mobile": "24.22.1-0",
+        "modules": "137",
+        "napi": "10",
+        "nbytes": "0.1.4",
+        "ncrypto": "0.0.1",
+        "nghttp2": "1.70.0",
+        "nghttp3": "",
+        "ngtcp2": "",
+        "node": "24.22.1",
+        "openssl": "3.5.9",
+        "simdjson": "4.6.11",
+        "simdutf": "6.4.0",
+        "sqlite": "3.53.4",
+        "undici": "7.30.1",
+        "uv": "1.52.1",
+        "uvwasi": "0.0.23",
+        "v8": "13.6.233.17-node.58-mobile.0",
+        "zlib": "1.3.2.1-motley-285e94b",
+        "zstd": "1.5.7"
+      },
+      "config_sha256": "fa2c56c56dd46b6283313352ad039f591490861b1f07f2b8aab6510976da9bed",
+      "binary_sha256": {
+        "bin/x86_64/libnode.so": "6cb3b610b8ebbe313f981e318235f8b22bff7e611a56f7835321914bd9d72838"
+      },
+      "symbols_sha256": {
+        "symbols/x86_64/libnode.so.debug": "3ef58fb41a191127e19c76fe6caf23c9519ef4fcd068cecdefa9e15157000b02"
+      }
+    }
+  ]
+}
